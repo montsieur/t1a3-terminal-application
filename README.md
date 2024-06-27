@@ -37,6 +37,7 @@ variables, loops, conditional control structures, error handling, functions, inp
     - Add Expense
     - Remove an Expense
     - View Expenses
+    - Total Expenses
     - Export Expense File
     - Exit Application
 
@@ -81,3 +82,5 @@ variables, loops, conditional control structures, error handling, functions, inp
     - Allows user's to close the application
 
 ## References
+
+- https://peps.python.org/pep-0008/
