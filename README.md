@@ -47,6 +47,8 @@ variables, loops, conditional control structures, error handling, functions, inp
     - Update budget
         - Allows user's to update their budget (used also as an entry point for budget amount)
 
+`remaining_budget = budget - get_total_expenses()`
+
 - ### Add Expense
 
     - Amount of the expense
