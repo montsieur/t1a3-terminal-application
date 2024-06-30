@@ -1,12 +1,14 @@
-# from file_operations import load_expenses, save_expenses
-from expense_tracker import ExpenseTracker, Expense, Budget
-
-tracker = ExpenseTracker
-
-budget_input = input("Enter your monthly budget: ")
-tracker.set_budget(budget_input)
-
-current_budget = tracker.view_budget()
-print(f"Current monthly budget: {current_budget}")
-
-
+# Main menu
+# Manage expense
+    # set budget
+    # add expense
+    # remove expense
+    # view expense
+        # view by category
+        # view all expenses
+    # total expense
+    # save budget file
+    # go back (exit menu)
+# load monthly budget file
+# instructions
+# exit application
