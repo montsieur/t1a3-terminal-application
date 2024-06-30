@@ -1,3 +1,4 @@
+from tabulate import tabulate # Import tabulate to create tables when displaying data
 import datetime 
 
 # Class for budget object(s)
@@ -17,12 +18,12 @@ class Expense:
     This is the class that stores our expense information/attributes.
 
     """
-    def __init__(self, name, date, category, amount, payment_method) -> None:
+    def __init__(self, name, date, amount) -> None:
         self.name = name
         self.date = date
-        self.category = category
+        # self.category = category
         self.amount = amount
-        self.payment_method = payment_method
+        # self.payment_method = payment_method
 
     # List to define categories for expenses
     # expense_category = [ Groceries, Food, Entertainment, Rent, Mortgage, Utilities, Shopping, Misc ]
@@ -84,19 +85,16 @@ class ExpenseTracker:
         expense_payment_method = 0
 
         # Object to store expense details
-        expense = (
-            'name': expense_name,
-            'date': expense_date,
-            'amount': expense_amount,
-            'category': expense_category,
-            'payment_method': expense_payment_method
-        )
+        expense = Expense(expense_name, expense_date, expense_amount)
 
         # Add expense entry to monthly_data list
         self.monthly_data.append(expense)
 
         print("Your expense has been added")
         # print(f"Your remaining balance is {self.budget - self.total_expense}")
+        print(tabulate([[expense.name, f"${expense.amount:.2f}", expense.date]], headers=["Name", "Amount", "Date"], tablefmt="fancy_grid"))
+
+
 
     # def remove_expense(self):
 
@@ -108,4 +106,12 @@ class ExpenseTracker:
     # def total_expense(self):
 
 
-      
+if __name__ == "__main__":
+    tracker = ExpenseTracker()
+
+    # Loop to add multiple expenses (for testing)
+    while True:
+        tracker.add_expense()
+        response = input("Do you want to add another expense? (yes/no): ").lower()
+        if response != 'yes':
+            break
