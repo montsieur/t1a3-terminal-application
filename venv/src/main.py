@@ -1,13 +1,15 @@
-from expense_tracker import ExpenseTracker
-import pyfiglet
+from expense_tracker import ExpenseTracker # Import ExpenseTracker class from expense_tracker module
+import pyfiglet # Import pyfiglet to convert text to ACSII art fonts
 
 def main():
-
+    # Creates instance for ExpenseTracker Class
     tracker = ExpenseTracker()
 
+    # Creates header for application using pyfiglet
     styled_text = pyfiglet.figlet_format('Expense Tracker', font='doom')
     print(styled_text)
 
+    # Main Menu options
     while True:
         print("\nExpense Tracker Menu:")
         print("1. Set Budget")
@@ -18,7 +20,7 @@ def main():
         print("6. Save Expenses to CSV")
         print("7. Load Expenses from CSV")
         print("8. Exit")
-
+        # User input to select from menu
         choice = input("Enter your choice (1-8): ")
 
         if choice == '1':
@@ -42,7 +44,7 @@ def main():
 
         elif choice == '7':
             pass
-
+        # To exit the application
         elif choice == '8':
             print("Exiting the Expense Tracker. Goodbye!")
             break
