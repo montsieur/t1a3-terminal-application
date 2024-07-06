@@ -12,8 +12,7 @@ if __name__ == "__main__":
         print("5. Total Expenses")
         print("6. Save Expenses to CSV")
         print("7. Load Expenses from CSV")
-        print("8. Track Monthly Expenses")
-        print("9. Exit")
+        print("8. Exit")
 
         choice = input("Enter your choice (1-9): ")
 
@@ -43,10 +42,6 @@ if __name__ == "__main__":
             filename = input("Enter filename to load expenses from (e.g., expenses.csv): ")
 
         elif choice == '8':
-            month = int(input("Enter month (1-12): "))
-            year = int(input("Enter year (YYYY): "))
-
-        elif choice == '9':
             print("Exiting the Expense Tracker. Goodbye!")
             break
 
