@@ -17,7 +17,11 @@ class Expense:
 
 # Class for Expense Tracker
 class ExpenseTracker:
+    """
 
+    This is the class that inherits 'Expense class' attributes and defines methods and functions of application
+
+    """
     # List to define categories for expenses
     expense_categories = [
         "Groceries", "Food", "Entertainment", "Rent",
@@ -28,7 +32,6 @@ class ExpenseTracker:
         "Cash", "Credit Card", "Debit Card"
     ]
 
-
     def __init__(self):
         # Initializes an empty list for monthly data for each instance
         self.monthly_data = []
@@ -37,8 +40,11 @@ class ExpenseTracker:
 
     # Set up budget for expense tracker
     def set_budget(self, budget):
-        self.budget = budget
-        print(f"Budget is set to ${self.budget:.2f}")
+        # Calculate the total of existing expenses
+        total_existing_expenses = sum(expense.amount for expense in self.monthly_data)
+        # Update budget to reflect any existing expenses
+        self.budget = budget - total_existing_expenses
+        print(f"Budget is set to ${budget:.2f}")
 
     # Add new expense into tracker
     def add_expense(self):
@@ -86,14 +92,14 @@ class ExpenseTracker:
             if expense_amount > self.budget:
                 print("Warning, this expense exceeds your budget!")
 
+            # Deduct the expense from the budget
+            self.budget -= expense_amount
+
             # Create new object for expenses
             new_expense = Expense(name=expense_name, amount=expense_amount, date=expense_date, category=expense_category, payment_method=expense_payment_method)
 
             # Add expense into monthly data list
             self.monthly_data.append(new_expense)
-
-            # Deduct the expense from the budget
-            self.budget -= expense_amount
 
             # Display message that expense entry has been recorded and remaining budget
             print("Expense has been recorded.")
@@ -128,20 +134,20 @@ class ExpenseTracker:
             # Assigning attribute to remove_expense using pop python list method to remove item from index
             removed_expense = self.monthly_data.pop(index)
 
+            print(f"Expense '{removed_expense.name}' removed successfully.")
+
             # Deduct the expense from the budget
             self.budget += removed_expense.amount
 
-            print(f"Expense '{removed_expense.name}' removed successfully.")
+            # Displays remaining expenses in monthly data list
+            self.view_expenses()   
 
         # Error handling if user input is not an integer    
         except ValueError:
             print("Invalid input. Please enter a valid index number.")
         # Error handling message for all other errors
         except Exception as e:
-            print(f"An unexpected error has occured: {e}")
-
-        # Displays remaining expenses in monthly data list
-        self.view_expenses()     
+            print(f"An unexpected error has occured: {e}")  
 
     # Display expenses if there are any in the monthly data list
     def view_expenses(self):
