@@ -72,13 +72,18 @@ class ExpenseTracker:
             # Add expense into monthly data list
             self.monthly_data.append(new_expense)
 
-            # Display message that expense entry has been recorded
+            # Deduct the expense from the budget
+            self.budget -= expense_amount
+
+            # Display message that expense entry has been recorded and remaining budget
             print("Expense has been recorded.")
+            print(f"Your remaining budget is {self.budget:.2f}.")
             print(tabulate([[new_expense.name, f"{new_expense.amount:.2f}", new_expense.date, new_expense.category, new_expense.payment_method]], headers=["Name", "Amount", "Date", "Category", "Payment Method"], tablefmt="fancy_grid"))
 
+        # Error handling message for invalid value amount
         except ValueError:
             print("Invalid input. Please enter a valid number for the expense amount.")
-
+        # Error handling message for all other errors
         except Exception as e:
             print(f"An unexpected error has occured: {e}")
             
@@ -126,6 +131,7 @@ class ExpenseTracker:
             # Informs the user if no expenses has been recorded yet.
             else:
                 print("No expenses recorded yet.")
+
         # Error handling message for all other errors
         except Exception as e:
             print(f"An unexpected error has occured: {e}")
@@ -140,6 +146,7 @@ class ExpenseTracker:
                 print(f"Total expenses: ${total:.2f}")
             else:
                 print("No expenses recorded yet.")
+
         # Error handling message for all other errors
         except Exception as e:
             print(f"An unexpected error has occured: {e}")
