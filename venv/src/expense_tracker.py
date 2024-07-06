@@ -1,9 +1,8 @@
-from expense import Expense
+from expense import Expense # Import class attributes from Expense module
 from tabulate import tabulate # Import tabulate to create tables when displaying data
 import datetime # Import datetime to implement time and date within expense tracker
-import csv
-import os
-
+import csv # Import csv to handle csv files
+import os # Import os to define and perform operating system operations
 
 # Class for Expense Tracker
 class ExpenseTracker:
@@ -75,6 +74,7 @@ class ExpenseTracker:
             while True:
                 expense_amount = float(input("Enter expense amount: "))
                 if expense_amount < 0:
+                    # Error handling if value is negative
                     print("Expense amount cannot be negative. Please enter a non-negative amount.")
                 else:
                     break
@@ -245,13 +245,9 @@ class ExpenseTracker:
                 # Initialize empty list for loaded expense list 
                 loaded_expenses = []
                 for row in reader:
-                    # Convert amount to float
                     amount = float(row['Amount'])
-                    # Convert datetime into a string
                     date = datetime.datetime.strptime(row['Date'], '%Y-%m-%d').date()
-                    # Gather budget information in file
                     budget = float(row.get('Budget', 0.0)) 
-                    # Create Expense object to inherit expense class attributes
                     expense = Expense(name=row['Name'], amount=amount, date=date, category=row['Category'], payment_method=row['Payment Method'], budget=budget)
                     # Creates object to append imported expense data
                     loaded_expenses.append(expense)
@@ -269,7 +265,7 @@ class ExpenseTracker:
 
         # Error handling when file name input is incorrect
         except FileNotFoundError:
-            print(f"File '{file_path}' cannot be found. Please enter the correct file name.")
+            print(f"The file: {filename} cannot be found. Please enter the correct file name.")
         # Error handling message for all other errors
         except Exception as e:
             print(f"An unexpected error has occurred: {e}")

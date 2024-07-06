@@ -26,18 +26,31 @@ def main():
 
         elif choice == '2':
             filename = input("Enter the filename to load (e.g., expenses.csv): ")
-            if tracker.load_expenses(filename):
-            # Automatically open the expense tracker submenu after loading expenses
+            tracker.load_expenses(filename)
+            # If data is found in file, loads sub-menu
+            if tracker.monthly_data:
                 expense_tracker_sub_menu(tracker)
-            # Loops back to main menu if file does not exist
-            else:
-                continue
 
         elif choice == '3':
-            pass
+            # Display welcome message and brief instructions on how to use the application
+            print("Welcome to your personal 'Expense Tracker'!\n")
+            print("To help you use this application, here are some simple instructions:\n")
+            print("1. To start tracking a new month, select 'Option 1'.")
+            print("2. To load an existing expense tracker file, select 'Option 2'. You will be prompted to enter the csv file name.")
+            print("3. To exit the Expense Tracker application, select 'Option 4'.\n")
+            print("Sub-Menu options after choosing to create a new monthly tracker or loading an existing tracker:")
+            print("1. Set your budget for the month using the 'Set Budget' option.")
+            print("- To update your budget, repeat previous step to update your new budget.")
+            print("2. Enter your expenses if there are no expenses recorded using the 'Add Expense' option.")
+            print("3. Delete expense entries using the 'Remove Expense' option.")
+            print("4. View all of your expenses within the month using the 'View Expenses' option.")
+            print("5. View total expenses within the month using the 'Total Expenses' option.")
+            print("6. Export your monthly expenses into a csv file using 'Save Expenses' option.")
+            print("7. To return back to menu, select 'Option 7'.")
+            print("Thank you for using this application.")
 
         elif choice == '4':
-            print("Exiting the Expense Tracker. Goodbye!")
+            print("Exiting the Expense Tracker. See you next time!")
             break
         else:
             # Error handling message for invalid input
