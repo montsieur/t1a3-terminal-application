@@ -96,6 +96,7 @@ class ExpenseTracker:
             print(f"An unexpected error has occured: {e}")
 
     def total_expenses(self):
-        pass
+        total = sum(expense.amount for expense in self.monthly_data)
+        print(f"Total expenses: ${total:.2f}")
     
 
