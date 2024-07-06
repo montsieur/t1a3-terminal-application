@@ -31,7 +31,7 @@ def main():
             tracker.view_expenses()
 
         elif choice == '5':
-            pass
+            tracker.total_expenses()
 
         elif choice == '6':
             pass

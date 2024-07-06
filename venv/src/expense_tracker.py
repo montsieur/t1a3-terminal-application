@@ -8,15 +8,20 @@ class Expense:
     This is the class that stores our expense information/attributes.
 
     """
-    def __init__(self, name, date, amount) -> None:
+    def __init__(self, name, date, amount, category) -> None:
         self.name = name
         self.date = date
-        # self.category = category
+        self.category = category
         self.amount = amount
         # self.payment_method = payment_method
 
 # Class for Expense Tracker
 class ExpenseTracker:
+
+    expense_categories = [
+        "Groceries", "Food", "Entertainment", "Rent",
+        "Mortgage", "Utilities", "Shopping", "Misc"
+    ]
 
     def __init__(self):
         # Initializes an empty list for monthly data for each instance
@@ -24,10 +29,6 @@ class ExpenseTracker:
         # Initializes budget to zero
         self.budget = 0.0 
         # List to define categories for expenses
-        # expense_categories = [
-        #     "Groceries", "Food", "Entertainment", "Rent",
-        #     "Mortgage", "Utilities", "Shopping", "Misc"
-        # ]
 
     # Set up budget for expense tracker
     def set_budget(self, budget):
@@ -39,16 +40,28 @@ class ExpenseTracker:
         expense_name = input("Enter expense name: ")
         expense_amount = float(input("Enter expense amount: "))
         expense_date = datetime.date.today()
+        
+        # Display list of categories for user to choose
+        print("Choose a category for the expense: ")
+        for expense_type, category in enumerate(self.expense_categories, start=1):
+            print(f"{expense_type}. {category}")
+        
+        category_index = int(input("Enter the number of the category (from 1 - 8): ")) - 1
+        if category_index < 0 or category_index >= len(self.expense_categories):
+            print("Invalid category number. Please try again.")
+            return
+        
+        expense_category = self.expense_categories[category_index]
 
         # Create new object for expenses
-        new_expense = Expense(name=expense_name, amount=expense_amount, date=expense_date)
+        new_expense = Expense(name=expense_name, amount=expense_amount, date=expense_date, category=expense_category)
 
         # Add expense into monthly data list
         self.monthly_data.append(new_expense)
 
         # Display message that expense entry has been recorded
         print("Expense has been recorded.")
-        print(tabulate([[new_expense.name, f"{new_expense.amount:.2f}", new_expense.date]], headers=["Name", "Amount", "Date"], tablefmt="fancy_grid"))
+        print(tabulate([[new_expense.name, f"{new_expense.amount:.2f}", new_expense.date, new_expense.category]], headers=["Name", "Amount", "Date", "Category"], tablefmt="fancy_grid"))
 
     # Remove an expense from the expense tracker monthly list
     def remove_expense(self):
