@@ -54,46 +54,30 @@ class ExpenseTracker:
             expense_amount = float(input("Enter expense amount: "))
             expense_date = datetime.date.today()
             
-            # Display list of categories for user to choose
+            # Display list of expense categories
             print("Choose a category for the expense: ")
             # Creates a tuple for category list numbering them from 1 - 8
             for expense_type, category in enumerate(self.expense_categories, start=1):
                 print(f"{expense_type}. {category}")
             
-            try:
-                category_index = int(input("Enter the number of the category (from 1 - 8): ")) - 1
-                if category_index < 0 or category_index >= len(self.expense_categories):
-                    print("Invalid category number. Please try again.")
-                    return
-            
-            # Error handling message for invalid input
-            except ValueError:
-                print("Invalid index number for category. Please enter a valid number.")
-                return
-            # Error handling message for all other errors
-            except Exception as e:
-                print(f"An unexpected error has occured: {e}")
+            category_index = int(input("Enter the number of the category (from 1 - 8): ")) - 1
+            # Error handling for invalid index input
+            if category_index < 0 or category_index >= len(self.expense_categories):
+                print("Invalid category number. Please try again.")
                 return
             
             expense_category = self.expense_categories[category_index]
 
-            # Creates a tuple for category list numbering them from 1 - 8
+            # Display list of payment methods
+            print("Choose a payment method for the expense: ")
+            # Creates a tuple for category list numbering them from 1 - 3
             for payment_type, payment_method in enumerate(self.payment_method_categories, start=1):
                 print(f"{payment_type}. {payment_method}")
             
-            try:
-                payment_method_index = int(input("Enter the number of the category (from 1 - 3): ")) - 1
-                if payment_method_index < 0 or payment_method_index >= len(self.payment_method_categories):
-                    print("Invalid category number. Please try again.")
-                    return
-            
-            # Error handling message for invalid input
-            except ValueError:
-                print("Invalid index number for category. Please enter a valid number.")
-                return
-            # Error handling message for all other errors
-            except Exception as e:
-                print(f"An unexpected error has occured: {e}")
+            payment_method_index = int(input("Enter the number of the category (from 1 - 3): ")) - 1
+            # Error handling for invalid index input
+            if payment_method_index < 0 or payment_method_index >= len(self.payment_method_categories):
+                print("Invalid category number. Please try again.")
                 return
             
             expense_payment_method = self.payment_method_categories[payment_method_index]
@@ -123,7 +107,6 @@ class ExpenseTracker:
         except Exception as e:
             print(f"An unexpected error has occured: {e}")
             
-
     # Remove an expense from the expense tracker monthly list
     def remove_expense(self):
         # If there is no expenses in the monthly data list
