@@ -26,9 +26,12 @@ def main():
 
         elif choice == '2':
             filename = input("Enter the filename to load (e.g., expenses.csv): ")
-            tracker.load_expenses(filename)
+            if tracker.load_expenses(filename):
             # Automatically open the expense tracker submenu after loading expenses
-            expense_tracker_sub_menu(tracker)
+                expense_tracker_sub_menu(tracker)
+            # Loops back to main menu if file does not exist
+            else:
+                continue
 
         elif choice == '3':
             pass

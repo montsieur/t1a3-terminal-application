@@ -269,7 +269,8 @@ class ExpenseTracker:
 
         # Error handling when file name input is incorrect
         except FileNotFoundError:
-            print(f"File '{file_path}' cannot be found.")
+            print(f"File '{file_path}' cannot be found. Please enter the correct file name.")
         # Error handling message for all other errors
         except Exception as e:
             print(f"An unexpected error has occurred: {e}")
+
