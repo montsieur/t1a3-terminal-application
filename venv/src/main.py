@@ -1,8 +1,12 @@
 from expense_tracker import ExpenseTracker
+import pyfiglet
 
 def main():
 
     tracker = ExpenseTracker()
+
+    styled_text = pyfiglet.figlet_format('Expense Tracker', font='doom')
+    print(styled_text)
 
     while True:
         print("\nExpense Tracker Menu:")
