@@ -24,6 +24,11 @@ class ExpenseTracker:
         "Mortgage", "Utilities", "Shopping", "Misc"
     ]
 
+    payment_method_categories = [
+        "Cash", "Credit Card", "Debit Card"
+    ]
+
+
     def __init__(self):
         # Initializes an empty list for monthly data for each instance
         self.monthly_data = []
@@ -71,8 +76,28 @@ class ExpenseTracker:
                 return
             
             expense_category = self.expense_categories[category_index]
-            expense_payment_method = input("Enter payment method: ")
 
+            # Creates a tuple for category list numbering them from 1 - 8
+            for payment_type, payment_method in enumerate(self.payment_method_categories, start=1):
+                print(f"{payment_type}. {payment_method}")
+            
+            try:
+                payment_method_index = int(input("Enter the number of the category (from 1 - 3): ")) - 1
+                if payment_method_index < 0 or payment_method_index >= len(self.payment_method_categories):
+                    print("Invalid category number. Please try again.")
+                    return
+            
+            # Error handling message for invalid input
+            except ValueError:
+                print("Invalid index number for category. Please enter a valid number.")
+                return
+            # Error handling message for all other errors
+            except Exception as e:
+                print(f"An unexpected error has occured: {e}")
+                return
+            
+            expense_payment_method = self.payment_method_categories[payment_method_index]
+            
             # Check if there enough budget remaining
             if expense_amount > self.budget:
                 print("Warning, this expense exceeds your budget!")
