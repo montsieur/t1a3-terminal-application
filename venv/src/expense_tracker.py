@@ -42,10 +42,25 @@ class ExpenseTracker:
 
         # Create new object for expenses
         new_expense = Expense(name=expense_name, amount=expense_amount, date=expense_date)
+        self.monthly_data.append(new_expense)
 
         # Display message that expense entry has been recorded
         print("Expense has been recorded.")
         print(tabulate([[new_expense.name, f"{new_expense.amount:.2f}", new_expense.date]], headers=["Name", "Amount", "Date"], tablefmt="fancy_grid"))
 
+    def remove_expense(self):
+        index = int(input("Enter the index of the expense to remove (starting from 1): "))
+        if 0 <= index < len(self.monthly_data):
+            expense_name = self.monthly_data[index].name
+            del self.monthly_data[index]
+            print(f"Expense '{expense_name}' at index {index} has been removed.")
+        else:
+            print("Index out of range. Please enter a valid index.")
 
+    def view_expenses(self):
+        pass
+
+    def total_expenses(self):
+        pass
+    
 

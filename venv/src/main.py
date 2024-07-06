@@ -25,7 +25,7 @@ def main():
             tracker.add_expense()
 
         elif choice == '3':
-            pass
+            tracker.remove_expense()
 
         elif choice == '4':
             pass
