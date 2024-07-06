@@ -54,6 +54,9 @@ class ExpenseTracker:
         except Exception as e:
             print(f"An unexpected error has occured: {e}")    
 
+    # Clear any existing monthly data
+    def clear_expenses(self):
+        self.monthly_data = []
 
     # Add new expense into tracker
     def add_expense(self):
@@ -209,12 +212,14 @@ class ExpenseTracker:
             venv_folder = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
             data_folder = os.path.join(venv_folder, 'data')
 
-            # saves CSV file to data folder
+            # Saves CSV file to data folder
             file_path = os.path.join(data_folder, filename + ".csv")
 
             with open(file_path, 'w') as csvfile:
                 writer = csv.writer(csvfile)
-                writer.writerow(["Name", "Amount", "Date", "Category", "Payment Method", "Budget"])  
+                # Writes headers for each value
+                writer.writerow(["Name", "Amount", "Date", "Category", "Payment Method", "Budget"])
+                # Writes values in attributes into monthly data list  
                 for expense in self.monthly_data:
                     writer.writerow([expense.name, expense.amount, expense.date, expense.category, expense.payment_method, expense.budget])
             # Displays message when file is successfully saved
@@ -251,11 +256,14 @@ class ExpenseTracker:
                     # Creates object to append imported expense data
                     loaded_expenses.append(expense)
                 
+                # Clears any existing monthly_data before loading new monthly expense
+                self.clear_expenses()
+
                 # Extend self.monthly_data with loaded expenses
                 self.monthly_data.extend(loaded_expenses)
                 print(f"Successfully loaded {len(loaded_expenses)} expenses from {file_path}")
 
-                # If there are loaded expenses, update the budget to the last recorded budget in the file
+                # Pulls and updates the budget to replace last recorded budget in the file
                 if loaded_expenses:
                     self.budget = float(loaded_expenses[-1].budget)
 
