@@ -1,6 +1,7 @@
 from expense_tracker import ExpenseTracker
 
-if __name__ == "__main__":
+def main():
+
     tracker = ExpenseTracker()
 
     while True:
@@ -17,17 +18,14 @@ if __name__ == "__main__":
         choice = input("Enter your choice (1-8): ")
 
         if choice == '1':
-            budget = float(input("Enter your budget for this period: $"))
+            budget = float(input("Enter your budget amount: "))
+            tracker.set_budget(budget)
 
         elif choice == '2':
-            amount = float(input("Enter amount spent: $"))
-            category = int(input("Enter category number: ")) - 1
-            name = input("Enter name of expense: ")
-            date = input("Enter date of expense (MM/DD/YYYY): ")
-            payment_method = input("Enter payment method: ")
+            tracker.add_expense()
 
         elif choice == '3':
-            index = int(input("Enter index of expense to remove: ")) - 1
+            pass
 
         elif choice == '4':
             pass
@@ -36,14 +34,18 @@ if __name__ == "__main__":
             pass
 
         elif choice == '6':
-            filename = input("Enter filename to save expenses (e.g., expenses.csv): ")
+            pass
 
         elif choice == '7':
-            filename = input("Enter filename to load expenses from (e.g., expenses.csv): ")
+            pass
 
         elif choice == '8':
             print("Exiting the Expense Tracker. Goodbye!")
             break
 
         else:
-            print("Invalid choice. Please enter a number from 1 to 9.")
+            # Error handling message for invalid input
+            print("Invalid choice. Please enter a number from 1 to 8.")
+
+if __name__ == "__main__":
+    main()
