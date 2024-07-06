@@ -9,7 +9,37 @@ def main():
     styled_text = pyfiglet.figlet_format('Expense Tracker', font='doom')
     print(styled_text)
 
+
+    while True:
     # Main Menu options
+        print("\nExpense Tracker Menu:")
+        print("1. Add new monthly tracker")
+        print("2. Load Monthly Expense File")
+        print("3. Instructions")
+        print("4. Exit Application")
+        choice = input("Enter your choice (1-4): ")
+
+
+        # User input to select from menu
+        if choice == '1':
+            # Sub-menu for new expense tracker
+            expense_tracker_sub_menu(tracker)
+
+        elif choice == '2':
+            pass
+
+        elif choice == '3':
+            pass
+
+        elif choice == '4':
+            print("Exiting the Expense Tracker. Goodbye!")
+            break
+        else:
+            # Error handling message for invalid input
+            print("Invalid choice. Please enter a number from 1 to 4.")
+
+def expense_tracker_sub_menu(tracker):    
+    # Sub-menu options
     while True:
         print("\nExpense Tracker Menu:")
         print("1. Set Budget")
@@ -18,8 +48,7 @@ def main():
         print("4. View Expenses")
         print("5. Total Expenses")
         print("6. Save Expenses to CSV")
-        print("7. Load Expenses from CSV")
-        print("8. Exit")
+        print("7. Return back to main menu")
         # User input to select from menu
         choice = input("Enter your choice (1-8): ")
 
@@ -41,16 +70,14 @@ def main():
         elif choice == '6':
             pass
 
+        # Return back to main menu
         elif choice == '7':
-            pass
-        # To exit the application
-        elif choice == '8':
-            print("Exiting the Expense Tracker. Goodbye!")
+            print("Returning to main menu...")
             break
 
         else:
             # Error handling message for invalid input
-            print("Invalid choice. Please enter a number from 1 to 8.")
+            print("Invalid choice. Please enter a number from 1 to 7.")
 
 if __name__ == "__main__":
     main()

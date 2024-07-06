@@ -1,4 +1,3 @@
-from file_operations import load_expenses, save_expenses
 from expense import Expense
 from tabulate import tabulate # Import tabulate to create tables when displaying data
 import datetime # Import datetime to implement time and date within expense tracker
@@ -189,8 +188,8 @@ class ExpenseTracker:
                 # Adds expenses from monthly data list
                 total = sum(expense.amount for expense in self.monthly_data)
                 # Displays total expenses and remaining budget
-                print(f"Your remaining budget is ${self.budget:.2f}.")
                 print(f"Total expenses: ${total:.2f}")
+                print(f"Your remaining budget is ${self.budget:.2f}.")
             else:
                 print("No expenses recorded yet.")
 
