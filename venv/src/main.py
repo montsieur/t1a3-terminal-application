@@ -14,7 +14,7 @@ if __name__ == "__main__":
         print("7. Load Expenses from CSV")
         print("8. Exit")
 
-        choice = input("Enter your choice (1-9): ")
+        choice = input("Enter your choice (1-8): ")
 
         if choice == '1':
             budget = float(input("Enter your budget for this period: $"))

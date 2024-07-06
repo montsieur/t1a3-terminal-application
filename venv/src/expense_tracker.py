@@ -30,3 +30,7 @@ class ExpenseTracker:
         # Initializes budget to zero
         self.budget = 0.0 
 
+    def set_budget(self, budget):
+        self.budget = budget
+        print(f"Budget is set to #{self.budget}")
+
