@@ -1,19 +1,7 @@
+from file_operations import load_expenses, save_expenses
+from expense import Expense
 from tabulate import tabulate # Import tabulate to create tables when displaying data
 import datetime # Import datetime to implement time and date within expense tracker
-
-# Class for expense object(s)
-class Expense:
-    """
-
-    This is the class that stores our expense information/attributes.
-
-    """
-    def __init__(self, name, date, amount, category, payment_method) -> None:
-        self.name = name
-        self.date = date
-        self.category = category
-        self.amount = amount
-        self.payment_method = payment_method
 
 # Class for Expense Tracker
 class ExpenseTracker:
