@@ -52,10 +52,12 @@ class ExpenseTracker:
 
     # Remove an expense from the expense tracker monthly list
     def remove_expense(self):
+        # If there is no expenses in the monthly data list
         if not self.monthly_data:
             print("No expenses recorded.")
             return
         
+        # Displays current expenses in monthly data list
         self.view_expenses()
         
         try:
@@ -75,13 +77,23 @@ class ExpenseTracker:
         except ValueError:
             print("Invalid input. Please enter a valid index number.")
 
+        except Exception as e:
+            print(f"An unexpected error has occured: {e}")
+
         # Displays remaining expenses in monthly data list
         self.view_expenses()        
 
     def view_expenses(self):
-        expense_data = [[expense.name, f"{expense.amount:.2f}", expense.date] for expense in self.monthly_data]
-        print(tabulate(expense_data, tablefmt="fancy_grid"))
-
+        try:
+            # Display expenses if there are any in the monthly data list
+            if self.monthly_data:
+                expense_data = [[expense.name, f"{expense.amount:.2f}", expense.date] for expense in self.monthly_data]
+                print(tabulate(expense_data, tablefmt="fancy_grid"))
+            # Informs the user if no expenses has been recorded yet.
+            else:
+                print("No expenses recorded yet.")
+        except Exception as e:
+            print(f"An unexpected error has occured: {e}")
 
     def total_expenses(self):
         pass
