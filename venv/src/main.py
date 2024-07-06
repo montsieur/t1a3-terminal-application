@@ -14,11 +14,10 @@ def main():
     # Main Menu options
         print("\nExpense Tracker Menu:")
         print("1. Add new monthly tracker")
-        print("2. Load Monthly Expense File")
+        print("2. Load monthly expense file")
         print("3. Instructions")
         print("4. Exit Application")
         choice = input("Enter your choice (1-4): ")
-
 
         # User input to select from menu
         if choice == '1':
@@ -26,7 +25,10 @@ def main():
             expense_tracker_sub_menu(tracker)
 
         elif choice == '2':
-            pass
+            filename = input("Enter the filename to load (e.g., expenses.csv): ")
+            tracker.load_expenses(filename)
+            # Automatically open the expense tracker submenu after loading expenses
+            expense_tracker_sub_menu(tracker)
 
         elif choice == '3':
             pass
@@ -50,7 +52,7 @@ def expense_tracker_sub_menu(tracker):
         print("6. Save Expenses to CSV")
         print("7. Return back to main menu")
         # User input to select from menu
-        choice = input("Enter your choice (1-8): ")
+        choice = input("Enter your choice (1-7): ")
 
         if choice == '1':
             tracker.set_budget()
@@ -68,7 +70,8 @@ def expense_tracker_sub_menu(tracker):
             tracker.total_expenses()
 
         elif choice == '6':
-            pass
+            filename = input("Enter filename to save expenses: ")
+            tracker.save_expenses(filename)
 
         # Return back to main menu
         elif choice == '7':

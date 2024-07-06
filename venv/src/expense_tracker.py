@@ -1,6 +1,9 @@
 from expense import Expense
 from tabulate import tabulate # Import tabulate to create tables when displaying data
 import datetime # Import datetime to implement time and date within expense tracker
+import csv
+import os
+
 
 # Class for Expense Tracker
 class ExpenseTracker:
@@ -36,8 +39,10 @@ class ExpenseTracker:
                     print("Expense amount cannot be negative. Please enter a non-negative amount.")
                 else:
                     break
+
             # Calculate the total of existing expenses
             total_existing_expenses = sum(expense.amount for expense in self.monthly_data)
+
             # Update budget to reflect any existing expenses
             self.budget = budget - total_existing_expenses
             print(f"Budget is set to ${budget:.2f}")
@@ -59,8 +64,8 @@ class ExpenseTracker:
                 # Ensures input only contains letters of the alphabet without spaces
                 if expense_name.replace(" ", "").isalpha():
                     break
-                # Error handling if input contains more then letters of alphabet
                 else:
+                    # Error handling if input contains more then letters of alphabet
                     print("Invalid input. Please ensure expense name only contains letters.")
             
             # User inputs expense amount 
@@ -112,7 +117,7 @@ class ExpenseTracker:
             self.budget -= expense_amount
 
             # Create new object for expenses
-            new_expense = Expense(name=expense_name, amount=expense_amount, date=expense_date, category=expense_category, payment_method=expense_payment_method)
+            new_expense = Expense(name=expense_name, amount=expense_amount, date=expense_date, category=expense_category, payment_method=expense_payment_method, budget=self.budget)
 
             # Add expense into monthly data list
             self.monthly_data.append(new_expense)
@@ -196,5 +201,67 @@ class ExpenseTracker:
         # Error handling message for all other errors
         except Exception as e:
             print(f"An unexpected error has occured: {e}")
-    
 
+    # Method to export current expense data to csv file
+    def save_expenses(self, filename):
+        try:
+            # Determines the path to the data folder from virtual environment folder
+            venv_folder = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+            data_folder = os.path.join(venv_folder, 'data')
+
+            # saves CSV file to data folder
+            file_path = os.path.join(data_folder, filename + ".csv")
+
+            with open(file_path, 'w') as csvfile:
+                writer = csv.writer(csvfile)
+                writer.writerow(["Name", "Amount", "Date", "Category", "Payment Method", "Budget"])  
+                for expense in self.monthly_data:
+                    writer.writerow([expense.name, expense.amount, expense.date, expense.category, expense.payment_method, expense.budget])
+            # Displays message when file is successfully saved
+            print(f"Expenses saved to {file_path} successfully.")
+
+        # Error handling message when exporting csv file
+        except Exception as e:
+            print(f"Error saving expenses to '{file_path}': {e}")
+
+    # Method to import expense data from csv file
+    def load_expenses(self, filename):
+        try:
+            # Determines the path to the data folder from virtual environment folder
+            venv_folder = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+            data_folder = os.path.join(venv_folder, 'data')
+
+            # Load CSV file to data folder
+            file_path = os.path.join(data_folder, filename)
+
+            # Reads CSV file chosen
+            with open(file_path, 'r') as file:
+                reader = csv.DictReader(file)
+                # Initialize empty list for loaded expense list 
+                loaded_expenses = []
+                for row in reader:
+                    # Convert amount to float
+                    amount = float(row['Amount'])
+                    # Convert datetime into a string
+                    date = datetime.datetime.strptime(row['Date'], '%Y-%m-%d').date()
+                    # Gather budget information in file
+                    budget = float(row.get('Budget', 0.0)) 
+                    # Create Expense object to inherit expense class attributes
+                    expense = Expense(name=row['Name'], amount=amount, date=date, category=row['Category'], payment_method=row['Payment Method'], budget=budget)
+                    # Creates object to append imported expense data
+                    loaded_expenses.append(expense)
+                
+                # Extend self.monthly_data with loaded expenses
+                self.monthly_data.extend(loaded_expenses)
+                print(f"Successfully loaded {len(loaded_expenses)} expenses from {file_path}")
+
+                # If there are loaded expenses, update the budget to the last recorded budget in the file
+                if loaded_expenses:
+                    self.budget = float(loaded_expenses[-1].budget)
+
+        # Error handling when file name input is incorrect
+        except FileNotFoundError:
+            print(f"File '{file_path}' cannot be found.")
+        # Error handling message for all other errors
+        except Exception as e:
+            print(f"An unexpected error has occurred: {e}")
