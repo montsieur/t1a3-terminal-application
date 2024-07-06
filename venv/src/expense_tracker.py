@@ -18,6 +18,7 @@ class Expense:
 # Class for Expense Tracker
 class ExpenseTracker:
 
+    # List to define categories for expenses
     expense_categories = [
         "Groceries", "Food", "Entertainment", "Rent",
         "Mortgage", "Utilities", "Shopping", "Misc"
@@ -28,7 +29,6 @@ class ExpenseTracker:
         self.monthly_data = []
         # Initializes budget to zero
         self.budget = 0.0 
-        # List to define categories for expenses
 
     # Set up budget for expense tracker
     def set_budget(self, budget):
@@ -53,11 +53,12 @@ class ExpenseTracker:
                 if category_index < 0 or category_index >= len(self.expense_categories):
                     print("Invalid category number. Please try again.")
                     return
-                
+            
+            # Error handling message for invalid input
             except ValueError:
                 print("Invalid index number for category. Please enter a valid number.")
                 return
-            
+            # Error handling message for all other errors
             except Exception as e:
                 print(f"An unexpected error has occured: {e}")
                 return
@@ -108,27 +109,39 @@ class ExpenseTracker:
         # Error handling if user input is not an integer    
         except ValueError:
             print("Invalid input. Please enter a valid index number.")
-
+        # Error handling message for all other errors
         except Exception as e:
             print(f"An unexpected error has occured: {e}")
 
         # Displays remaining expenses in monthly data list
-        self.view_expenses()        
+        self.view_expenses()     
 
+    # Display expenses if there are any in the monthly data list
     def view_expenses(self):
         try:
-            # Display expenses if there are any in the monthly data list
             if self.monthly_data:
-                expense_data = [[expense.name, f"{expense.amount:.2f}", expense.date] for expense in self.monthly_data]
-                print(tabulate(expense_data, tablefmt="fancy_grid"))
+                expense_data = [[expense.name, f"{expense.amount:.2f}", expense.date, expense.category, expense.payment_method] for expense in self.monthly_data]
+                # Displays table of expenses
+                print(tabulate(expense_data, headers=["Name", "Amount", "Date", "Category", "Payment Method"], tablefmt="fancy_grid"))
             # Informs the user if no expenses has been recorded yet.
             else:
                 print("No expenses recorded yet.")
+        # Error handling message for all other errors
         except Exception as e:
             print(f"An unexpected error has occured: {e}")
 
+    # Display total expenses if there are any in the monthly data list
     def total_expenses(self):
-        total = sum(expense.amount for expense in self.monthly_data)
-        print(f"Total expenses: ${total:.2f}")
+        try:
+            if self.monthly_data:
+                # Adds expenses from monthly data list
+                total = sum(expense.amount for expense in self.monthly_data)
+                # Displays total expenses
+                print(f"Total expenses: ${total:.2f}")
+            else:
+                print("No expenses recorded yet.")
+        # Error handling message for all other errors
+        except Exception as e:
+            print(f"An unexpected error has occured: {e}")
     
 
