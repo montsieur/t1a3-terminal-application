@@ -8,12 +8,12 @@ class Expense:
     This is the class that stores our expense information/attributes.
 
     """
-    def __init__(self, name, date, amount, category) -> None:
+    def __init__(self, name, date, amount, category, payment_method) -> None:
         self.name = name
         self.date = date
         self.category = category
         self.amount = amount
-        # self.payment_method = payment_method
+        self.payment_method = payment_method
 
 # Class for Expense Tracker
 class ExpenseTracker:
@@ -37,31 +37,50 @@ class ExpenseTracker:
 
     # Add new expense into tracker
     def add_expense(self):
-        expense_name = input("Enter expense name: ")
-        expense_amount = float(input("Enter expense amount: "))
-        expense_date = datetime.date.today()
-        
-        # Display list of categories for user to choose
-        print("Choose a category for the expense: ")
-        for expense_type, category in enumerate(self.expense_categories, start=1):
-            print(f"{expense_type}. {category}")
-        
-        category_index = int(input("Enter the number of the category (from 1 - 8): ")) - 1
-        if category_index < 0 or category_index >= len(self.expense_categories):
-            print("Invalid category number. Please try again.")
-            return
-        
-        expense_category = self.expense_categories[category_index]
+        try:
+            expense_name = input("Enter expense name: ")
+            expense_amount = float(input("Enter expense amount: "))
+            expense_date = datetime.date.today()
+            
+            # Display list of categories for user to choose
+            print("Choose a category for the expense: ")
+            # Creates a tuple for category list numbering them from 1 - 8
+            for expense_type, category in enumerate(self.expense_categories, start=1):
+                print(f"{expense_type}. {category}")
+            
+            try:
+                category_index = int(input("Enter the number of the category (from 1 - 8): ")) - 1
+                if category_index < 0 or category_index >= len(self.expense_categories):
+                    print("Invalid category number. Please try again.")
+                    return
+                
+            except ValueError:
+                print("Invalid index number for category. Please enter a valid number.")
+                return
+            
+            except Exception as e:
+                print(f"An unexpected error has occured: {e}")
+                return
+            
+            expense_category = self.expense_categories[category_index]
+            expense_payment_method = input("Enter payment method: ")
 
-        # Create new object for expenses
-        new_expense = Expense(name=expense_name, amount=expense_amount, date=expense_date, category=expense_category)
+            # Create new object for expenses
+            new_expense = Expense(name=expense_name, amount=expense_amount, date=expense_date, category=expense_category, payment_method=expense_payment_method)
 
-        # Add expense into monthly data list
-        self.monthly_data.append(new_expense)
+            # Add expense into monthly data list
+            self.monthly_data.append(new_expense)
 
-        # Display message that expense entry has been recorded
-        print("Expense has been recorded.")
-        print(tabulate([[new_expense.name, f"{new_expense.amount:.2f}", new_expense.date, new_expense.category]], headers=["Name", "Amount", "Date", "Category"], tablefmt="fancy_grid"))
+            # Display message that expense entry has been recorded
+            print("Expense has been recorded.")
+            print(tabulate([[new_expense.name, f"{new_expense.amount:.2f}", new_expense.date, new_expense.category, new_expense.payment_method]], headers=["Name", "Amount", "Date", "Category", "Payment Method"], tablefmt="fancy_grid"))
+
+        except ValueError:
+            print("Invalid input. Please enter a valid number for the expense amount.")
+
+        except Exception as e:
+            print(f"An unexpected error has occured: {e}")
+            
 
     # Remove an expense from the expense tracker monthly list
     def remove_expense(self):
