@@ -24,8 +24,7 @@ def main():
         choice = input("Enter your choice (1-8): ")
 
         if choice == '1':
-            budget = float(input("Enter your budget amount: "))
-            tracker.set_budget(budget)
+            tracker.set_budget()
 
         elif choice == '2':
             tracker.add_expense()

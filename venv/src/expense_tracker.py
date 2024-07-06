@@ -39,18 +39,35 @@ class ExpenseTracker:
         self.budget = 0.0 
 
     # Set up budget for expense tracker
-    def set_budget(self, budget):
-        # Calculate the total of existing expenses
-        total_existing_expenses = sum(expense.amount for expense in self.monthly_data)
-        # Update budget to reflect any existing expenses
-        self.budget = budget - total_existing_expenses
-        print(f"Budget is set to ${budget:.2f}")
+    def set_budget(self):
+        try:
+            while True:
+                # User inputs budget amount
+                budget = float(input("Enter your budget amount: "))
+                if budget < 0:
+                    # Error handling if value is negative
+                    print("Expense amount cannot be negative. Please enter a non-negative amount.")
+                else:
+                    break
+            # Calculate the total of existing expenses
+            total_existing_expenses = sum(expense.amount for expense in self.monthly_data)
+            # Update budget to reflect any existing expenses
+            self.budget = budget - total_existing_expenses
+            print(f"Budget is set to ${budget:.2f}")
+        
+        # Error handling message for invalid value amount
+        except ValueError:
+            print("Invalid input. Please enter a valid number for the expense amount.")
+        # Error handling message for all other errors
+        except Exception as e:
+            print(f"An unexpected error has occured: {e}")    
+
 
     # Add new expense into tracker
     def add_expense(self):
         try:
+            # User inputs expense name
             while True:
-                # User inputs expense name
                 expense_name = input("Enter expense name: ")
                 # Ensures input only contains letters of the alphabet without spaces
                 if expense_name.replace(" ", "").isalpha():
@@ -58,8 +75,15 @@ class ExpenseTracker:
                 # Error handling if input contains more then letters of alphabet
                 else:
                     print("Invalid input. Please ensure expense name only contains letters.")
-            # User inputs expense amount
-            expense_amount = float(input("Enter expense amount: "))
+            
+            # User inputs expense amount 
+            while True:
+                expense_amount = float(input("Enter expense amount: "))
+                if expense_amount < 0:
+                    print("Expense amount cannot be negative. Please enter a non-negative amount.")
+                else:
+                    break
+
             # Automatically sets time to today's date and time
             expense_date = datetime.date.today()
             
