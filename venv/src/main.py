@@ -1,4 +1,4 @@
-from expense_tracker import Expense, ExpenseTracker
+from expense_tracker import ExpenseTracker
 
 if __name__ == "__main__":
     tracker = ExpenseTracker()
