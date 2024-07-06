@@ -38,7 +38,14 @@ class ExpenseTracker:
     # Add new expense into tracker
     def add_expense(self):
         try:
-            expense_name = input("Enter expense name: ")
+            while True:
+                expense_name = input("Enter expense name: ")
+                if expense_name.isalpha():
+                    break
+                # Error handling if input contains more then letters of alphabet
+                else:
+                    print("Invalid input. Please ensure expense name only contains letters.")
+
             expense_amount = float(input("Enter expense amount: "))
             expense_date = datetime.date.today()
             
@@ -65,6 +72,10 @@ class ExpenseTracker:
             
             expense_category = self.expense_categories[category_index]
             expense_payment_method = input("Enter payment method: ")
+
+            # Check if there enough budget remaining
+            if expense_amount > self.budget:
+                print("Warning, this expense exceeds your budget!")
 
             # Create new object for expenses
             new_expense = Expense(name=expense_name, amount=expense_amount, date=expense_date, category=expense_category, payment_method=expense_payment_method)
@@ -109,6 +120,9 @@ class ExpenseTracker:
             # Assigning attribute to remove_expense using pop python list method to remove item from index
             removed_expense = self.monthly_data.pop(index)
 
+            # Deduct the expense from the budget
+            self.budget += removed_expense.amount
+
             print(f"Expense '{removed_expense.name}' removed successfully.")
 
         # Error handling if user input is not an integer    
@@ -126,7 +140,8 @@ class ExpenseTracker:
         try:
             if self.monthly_data:
                 expense_data = [[expense.name, f"{expense.amount:.2f}", expense.date, expense.category, expense.payment_method] for expense in self.monthly_data]
-                # Displays table of expenses
+                # Displays table of expenses  and remaining budget
+                print(f"Your remaining budget is {self.budget:.2f}.")
                 print(tabulate(expense_data, headers=["Name", "Amount", "Date", "Category", "Payment Method"], tablefmt="fancy_grid"))
             # Informs the user if no expenses has been recorded yet.
             else:
@@ -142,7 +157,8 @@ class ExpenseTracker:
             if self.monthly_data:
                 # Adds expenses from monthly data list
                 total = sum(expense.amount for expense in self.monthly_data)
-                # Displays total expenses
+                # Displays total expenses and remaining budget
+                print(f"Your remaining budget is {self.budget:.2f}.")
                 print(f"Total expenses: ${total:.2f}")
             else:
                 print("No expenses recorded yet.")
