@@ -52,19 +52,31 @@ class ExpenseTracker:
 
     # Remove an expense from the expense tracker monthly list
     def remove_expense(self):
-        """
+        if not self.monthly_data:
+            print("No expenses recorded.")
+            return
+        
+        self.view_expenses()
+        
+        try:
+            # User input a number starting from 1 to remove an expense
+            index = int(input("Enter index of the expense to remove (starting from 1): ")) - 1
+            # Error handling if user input is less than 0
+            if index < 0 or index >= len(self.monthly_data):
+                print("Invalid index. Please enter a valid index.")
+                return
 
-        need to fix index to start from 1 and not 0
+            # Assigning attribute to remove_expense using pop python list method to remove item from index
+            removed_expense = self.monthly_data.pop(index)
 
-        """
-        index = int(input("Enter the index of the expense to remove (starting from 1): "))
+            print(f"Expense '{removed_expense.name}' removed successfully.")
 
-        if 0 <= index < len(self.monthly_data):
-            expense_name = self.monthly_data[index].name
-            del self.monthly_data[index]
-            print(f"Expense '{expense_name}' at index {index} has been removed.")
-        else:
-            print("Index out of range. Please enter a valid index.")
+        # Error handling if user input is not an integer    
+        except ValueError:
+            print("Invalid input. Please enter a valid index number.")
+
+        # Displays remaining expenses in monthly data list
+        self.view_expenses()        
 
     def view_expenses(self):
         expense_data = [[expense.name, f"{expense.amount:.2f}", expense.date] for expense in self.monthly_data]
