@@ -13,7 +13,7 @@ def main():
 
     while True:
     # Main Menu options
-        print("\nExpense Tracker Menu:")
+        print("\n[light_goldenrod1]Expense Tracker Menu:[/light_goldenrod1]")
         print("1. Add new monthly tracker")
         print("2. Load monthly expense file")
         print("3. Instructions")
@@ -62,7 +62,7 @@ def main():
 def expense_tracker_sub_menu(tracker):    
     # Sub-menu options
     while True:
-        print("\nExpense Tracker Menu:")
+        print("\n[light_goldenrod1]Expense Tracker Menu:[/light_goldenrod1]")
         print("1. Set Budget")
         print("2. Add Expense")
         print("3. Remove Expense")
@@ -99,7 +99,7 @@ def expense_tracker_sub_menu(tracker):
 
         else:
             # Error handling message for invalid input
-            print("Invalid choice. Please enter a number from 1 to 7.")
+            print("[red3]Invalid choice. Please enter a number from 1 to 7.[/red3]")
 
 if __name__ == "__main__":
     main()

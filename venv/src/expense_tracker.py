@@ -37,7 +37,7 @@ class ExpenseTracker:
                 budget = float(input("Enter your budget amount: "))
                 if budget < 0:
                     # Error handling if value is negative
-                    print("Expense amount cannot be negative. Please enter a non-negative amount.")
+                    print("[red3]Expense amount cannot be negative. Please enter a non-negative amount.[/red3]")
                 else:
                     break
 
@@ -46,15 +46,15 @@ class ExpenseTracker:
             # Update budget to reflect any existing expenses
             self.budget = budget - total_existing_expenses
             # Displays new total budget
-            print(f"Budget is set to ${budget:.2f}.")
+            print(f"[green3]Budget is set to ${budget:.2f}.[/green3]")
             print(f"Your remaining budget is ${self.budget:.2f}.")
         
         # Error handling message for invalid value amount
         except ValueError:
-            print("Invalid input. Please enter a valid number for the expense amount.")
+            print("[red3]Invalid input. Please enter a valid number for the expense amount.[/red3]")
         # Error handling message for all other errors
         except Exception as e:
-            print(f"An unexpected error has occured: {e}")     
+            print(f"[red3]An unexpected error has occured: {e}[/red3]")     
 
     # Clear any existing monthly data
     def clear_expenses(self):
@@ -71,14 +71,14 @@ class ExpenseTracker:
                     break
                 else:
                     # Error handling if input contains more then letters of alphabet
-                    print("Invalid input. Please ensure expense name only contains letters.")
+                    print("[red3]Invalid input. Please ensure expense name only contains letters.[/red3]")
             
             # User inputs expense amount 
             while True:
                 expense_amount = float(input("Enter expense amount: "))
                 if expense_amount < 0:
                     # Error handling if value is negative
-                    print("Expense amount cannot be negative. Please enter a non-negative amount.")
+                    print("[red3]Expense amount cannot be negative. Please enter a non-negative amount.[/red3]")
                 else:
                     break
 
@@ -98,7 +98,7 @@ class ExpenseTracker:
                     break
                 else:
                     # Error handling for invalid index input
-                    print("Invalid category number. Please try again.")
+                    print("[red3]Invalid category number. Please try again.[/red3]")
 
             # User chooses from list of inputs for payment method
             print("Choose a payment method for the expense: ")
@@ -113,11 +113,11 @@ class ExpenseTracker:
                     break
                 else:
                     # Error handling for invalid index input
-                    print("Invalid payment method number. Please try again.")           
+                    print("[red3]Invalid payment method number. Please try again.[/red3]")           
             
             # Check if there enough budget remaining
             if expense_amount > self.budget:
-                print("Warning, this expense exceeds your budget!")
+                print("[red3]Warning, this expense exceeds your budget![/red3]")
 
             # Deduct the expense from the budget
             self.budget -= expense_amount
@@ -129,22 +129,22 @@ class ExpenseTracker:
             self.monthly_data.append(new_expense)
 
             # Display message that expense entry has been recorded and remaining budget
-            print("Expense has been recorded.")
+            print("[green3]Expense has been recorded.[/green3]")
             print(f"Your remaining budget is ${self.budget:.2f}.")
             print(tabulate([[new_expense.name, f"{new_expense.amount:.2f}", new_expense.date, new_expense.category, new_expense.payment_method]], headers=["Name", "Amount", "Date", "Category", "Payment Method"], tablefmt="fancy_grid"))
 
         # Error handling message for invalid value amount
         except ValueError:
-            print("Invalid input. Please enter a valid number for the expense amount.")
+            print("[red3]Invalid input. Please enter a valid number for the expense amount.[/red3]")
         # Error handling message for all other errors
         except Exception as e:
-            print(f"An unexpected error has occured: {e}")
+            print(f"[red3]An unexpected error has occured: {e}[/red3]")
             
     # Remove an expense from the expense tracker monthly list
     def remove_expense(self):
         # If there is no expenses in the monthly data list
         if not self.monthly_data:
-            print("No expenses recorded.")
+            print("[red3]No expenses recorded.[red3]")
             return
         
         # Displays current expenses in monthly data list
@@ -155,13 +155,13 @@ class ExpenseTracker:
             index = int(input("Enter index of the expense to remove (starting from 1): ")) - 1
             # Error handling if user input is less than 0
             if index < 0 or index >= len(self.monthly_data):
-                print("Invalid index. Please enter a valid index.")
+                print("[red3]Invalid index. Please enter a valid index.[/red3]")
                 return
 
             # Assigning attribute to remove_expense using pop python list method to remove item from index
             removed_expense = self.monthly_data.pop(index)
 
-            print(f"Expense '{removed_expense.name}' removed successfully.")
+            print(f"[green3]Expense '{removed_expense.name}' removed successfully.[/green3]")
 
             # Deduct the expense from the budget
             self.budget += removed_expense.amount
@@ -171,10 +171,10 @@ class ExpenseTracker:
 
         # Error handling if user input is not an integer    
         except ValueError:
-            print("Invalid input. Please enter a valid index number.")
+            print("[red3]Invalid input. Please enter a valid index number.[/red3]")
         # Error handling message for all other errors
         except Exception as e:
-            print(f"An unexpected error has occured: {e}")  
+            print(f"[red3]An unexpected error has occured: {e}[/red3]")  
 
     # Display expenses if there are any in the monthly data list
     def view_expenses(self):
@@ -186,11 +186,11 @@ class ExpenseTracker:
                 print(tabulate(expense_data, headers=["Name", "Amount", "Date", "Category", "Payment Method"], tablefmt="fancy_grid"))
             # Informs the user if no expenses has been recorded yet.
             else:
-                print("No expenses recorded yet.")
+                print("[red3]No expenses recorded yet.[/red3]")
 
         # Error handling message for all other errors
         except Exception as e:
-            print(f"An unexpected error has occured: {e}")
+            print(f"[red3]An unexpected error has occured: {e}[/red3]")
 
     # Display total expenses if there are any in the monthly data list
     def total_expenses(self):
@@ -199,14 +199,14 @@ class ExpenseTracker:
                 # Adds expenses from monthly data list
                 total = sum(expense.amount for expense in self.monthly_data)
                 # Displays total expenses and remaining budget
-                print(f"Total expenses: ${total:.2f}")
+                print(f"[green3]Total expenses: ${total:.2f}[/green3]")
                 print(f"Your remaining budget is ${self.budget:.2f}.")
             else:
-                print("No expenses recorded yet.")
+                print("[red3]No expenses recorded yet.[/red3]")
 
         # Error handling message for all other errors
         except Exception as e:
-            print(f"An unexpected error has occured: {e}")
+            print(f"[red3]An unexpected error has occured: {e}[/red3]")
 
     # Method to export current expense data to csv file
     def save_expenses(self, filename):
@@ -226,11 +226,11 @@ class ExpenseTracker:
                 for expense in self.monthly_data:
                     writer.writerow([expense.name, expense.amount, expense.date, expense.category, expense.payment_method, expense.budget])
             # Displays message when file is successfully saved
-            print(f"Expenses saved to {file_path} successfully.")
+            print(f"[green3]Expenses saved to {file_path} successfully.[/green3]")
 
         # Error handling message when exporting csv file
         except Exception as e:
-            print(f"Error saving expenses to '{file_path}': {e}")
+            print(f"[red3]Error saving expenses to '{file_path}': {e}[/red3]")
 
     # Method to import expense data from csv file
     def load_expenses(self, filename):
@@ -260,7 +260,7 @@ class ExpenseTracker:
 
                 # Extend self.monthly_data with loaded expenses
                 self.monthly_data.extend(loaded_expenses)
-                print(f"Successfully loaded {len(loaded_expenses)} expenses from {file_path}")
+                print(f"[green3]Successfully loaded {len(loaded_expenses)} expenses from {file_path}[/green3]")
 
                 # Pulls and updates the budget to replace last recorded budget in the file
                 if loaded_expenses:
@@ -268,8 +268,8 @@ class ExpenseTracker:
 
         # Error handling when file name input is incorrect
         except FileNotFoundError:
-            print(f"The file: {filename} cannot be found. Please enter the correct file name.")
+            print(f"[red3]The file: {filename} cannot be found. Please enter the correct file name.[/red3]")
         # Error handling message for all other errors
         except Exception as e:
-            print(f"An unexpected error has occurred: {e}")
+            print(f"[red3]An unexpected error has occurred: {e}[/red3]")
 
