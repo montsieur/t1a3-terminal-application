@@ -37,6 +37,7 @@ def main():
             print("To help you use this application, here are some simple instructions:\n")
             print("1. To start tracking a new month, select 'Option 1'.")
             print("2. To load an existing expense tracker file, select 'Option 2'. You will be prompted to enter the csv file name.")
+            print("- Note: Please ensure file is in the /data folder")
             print("3. To exit the Expense Tracker application, select 'Option 4'.\n")
             print("Sub-Menu options after choosing to create a new monthly tracker or loading an existing tracker:")
             print("1. Set your budget for the month using the 'Set Budget' option.")
@@ -46,6 +47,7 @@ def main():
             print("4. View all of your expenses within the month using the 'View Expenses' option.")
             print("5. View total expenses within the month using the 'Total Expenses' option.")
             print("6. Export your monthly expenses into a csv file using 'Save Expenses' option.")
+            print("- Note: The file will be saved into the data folder.")
             print("7. To return back to menu, select 'Option 7'.")
             print("Thank you for using this application.")
 
@@ -72,7 +74,7 @@ def expense_tracker_sub_menu(tracker):
 
         if choice == '1':
             tracker.set_budget()
-
+           
         elif choice == '2':
             tracker.add_expense()
 

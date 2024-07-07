@@ -14,7 +14,7 @@ class ExpenseTracker:
     # List to define categories for expenses
     expense_categories = [
         "Groceries", "Food", "Entertainment", "Rent",
-        "Mortgage", "Utilities", "Shopping", "Misc"
+        "Mortgage", "Utilities", "Shopping", "Misc" 
     ]
     # List to define categories for payment types
     payment_method_categories = [
@@ -41,17 +41,18 @@ class ExpenseTracker:
 
             # Calculate the total of existing expenses
             total_existing_expenses = sum(expense.amount for expense in self.monthly_data)
-
             # Update budget to reflect any existing expenses
             self.budget = budget - total_existing_expenses
-            print(f"Budget is set to ${budget:.2f}")
+            # Displays new total budget
+            print(f"Budget is set to ${budget:.2f}.")
+            print(f"Your remaining budget is ${self.budget:.2f}.")
         
         # Error handling message for invalid value amount
         except ValueError:
             print("Invalid input. Please enter a valid number for the expense amount.")
         # Error handling message for all other errors
         except Exception as e:
-            print(f"An unexpected error has occured: {e}")    
+            print(f"An unexpected error has occured: {e}")     
 
     # Clear any existing monthly data
     def clear_expenses(self):
