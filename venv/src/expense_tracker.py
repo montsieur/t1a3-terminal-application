@@ -3,6 +3,8 @@ from tabulate import tabulate # Import tabulate to create tables when displaying
 import datetime # Import datetime to implement time and date within expense tracker
 import csv # Import csv to handle csv files
 import os # Import os to define and perform operating system operations
+from rich import print # type: ignore # Import rich to implement color to text
+
 
 # Class for Expense Tracker
 class ExpenseTracker:

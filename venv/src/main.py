@@ -1,5 +1,6 @@
 from expense_tracker import ExpenseTracker # Import ExpenseTracker class from expense_tracker module
 import pyfiglet # Import pyfiglet to convert text to ACSII art fonts
+from rich import print
 
 def main():
     # Creates instance for ExpenseTracker Class
@@ -56,7 +57,7 @@ def main():
             break
         else:
             # Error handling message for invalid input
-            print("Invalid choice. Please enter a number from 1 to 4.")
+            print("[red3]Invalid choice. Please enter a number from 1 to 4.[/red3]")
 
 def expense_tracker_sub_menu(tracker):    
     # Sub-menu options
