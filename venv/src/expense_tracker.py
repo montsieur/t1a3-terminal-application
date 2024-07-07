@@ -155,8 +155,7 @@ class ExpenseTracker:
             index = int(input("Enter index of the expense to remove (starting from 1): ")) - 1
             # Error handling if user input is less than 0
             if index < 0 or index >= len(self.monthly_data):
-                print("[red3]Invalid index. Please enter a valid index.[/red3]")
-                return
+                raise IndexError("Index is not valid or does not exist. Please try again.")
 
             # Assigning attribute to remove_expense using pop python list method to remove item from index
             removed_expense = self.monthly_data.pop(index)
