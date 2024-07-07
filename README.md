@@ -66,7 +66,8 @@ The minimum hardware requirements to run this application as follows:
 
 1. Download and extract VanNguyen_T1A3.zip.
 2. Open the terminal and navigate to the repository directory `cd VanNguyen_T1A3`.
-3. Execute the bash script ./run.sh. Executing this file will perform the following:
+3. Before executing bash script, type `chmod +x ./run_expense_tracker.sh` to prevent any issues loading the script.
+3. Execute the bash script `./run_expense_tracker.sh.` Executing this file will perform the following:
     - Check if `Python 3` is installed. If Python 3 is not installed, the user will see an error message `"Python 3 is not installed. Please install Python 3 first."` and the script will end. If it is installed, it will continue to the next step.
     - Create a virtual environment if it does not exist `python3 -m venv venv`.
     - Activate the virtual environment `source venv/bin/activate`.
