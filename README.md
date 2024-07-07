@@ -25,8 +25,14 @@ My initial step was to implement the planning stage of the project before laying
 *With errors:*
 I am able to determine the errors that will occur and expand specifically for those errors with the use of error handling. Once error has been determined, debugging process will proceed.
 
+Example of  error handling:
+![error_example](docs/error_example.JPG)
+
 *Without errors:*
 Ticking off checklist to proceed to the next function/method.
+
+Example of successful input with no errors:
+![success_example](docs/success_example.JPG)
 
 To finalize the project, it is required to compile and ensure application is executable with no errors.
 
@@ -36,13 +42,35 @@ Given the timeframe of the project, I had set the deadline to work around my sch
 
 ![trello_overallplan](docs/trello_planning.JPG)
 
-### Flowchart
+## System/Hardware Requirements
 
-[ to add screenshots of flowchat of application ]
+### Python Version
+Python 3 is required to run the application due to potential compatibility issues with required python packages.
+
+### Operating System
+The Expense Tracker can be operated on all desktop operating systems such as:
+- Windows
+- macOS
+- Linux
+
+### Hardware System
+The minimum hardware requirements to run this application as follows:
+
+- Memory (RAM)- at least 2GB or more.
+- Storage - at least 1GB
 
 ## Installation
 
-[ instructions to install the application for use ]
+1. Download and extract VanNguyen_T1A3.zip.
+2. Open the terminal and navigate to the repository directory `cd VanNguyen_T1A3`.
+3. Execute the bash script ./run.sh. Executing this file will perform the following:
+    - Check if `Python 3` is installed. If Python 3 is not installed, the user will see an error message `"Python 3 is not installed. Please install Python 3 first."` and the script will end. If it is installed, it will continue to the next step.
+    - Create a virtual environment if it does not exist `python3 -m venv venv`.
+    - Activate the virtual environment `source venv/bin/activate`.
+    - Install the required python packages from `requirements.txt`.
+    - Change directory to the folder that contains the application `cd src`.
+    - Run the main application `main.py`.
+    - Deactivate the virtual environment when exiting.
 
 ## Modules
 
@@ -100,13 +128,30 @@ Prompts user to enter a file name to open up an existing monthly tracker
     - User input file name with file extension (.csv). e.g. august_2024.csv
     - Loads 'Sub Menu' once file is loaded
 
-
 ![method_load_expenses](docs/method_loadexpense.JPG)
+
+This will ensure application is pulling the file from the correct directory being `/data`. Once file is loaded, it will read the file using the following headers listed within the file itself to assign it's value to the `Expense class` attribute. Therefore, successfully loading the data for use in the application.
+
+This is done by initializing an empty list called `loaded_expenses[]`, once values are loaded successfully, it will `append` value attributes into `Expense class` including the remaining budget as `self.budget`. To ensure no errors when importing data, values such as amount and budget is classified as a `float` whilst `datetime` is classified as a `string`.
+
+***Successful Output***
+
+![load_successful](docs/load_expense_success.JPG)
+
+If user input is incorrect (such as incorrect file name or file path), it will display an error message and loop back to the main menu.
+
+***Unsuccessful Output***
+
+![load_error](docs/error_load.JPG)
 
 #### Instructions
 Displays a list of basic instructions for the user to read and learn more about how each function of the application works.
     
     - Shows brief explanation for each method/function in the main menu and sub menu
+
+***Output***
+
+![output_instructions](docs/instructions.JPG)
 
 #### Exiting Application
 
@@ -148,6 +193,15 @@ Prompts user to enter an amount to set their monthly budget.
 
 ![set_budget](docs/method_set_budget.JPG)
 
+***Successful Output***
+
+![output_budget](docs/success_setbudget.JPG)
+
+***Unsuccessful Output***
+
+![error_budget](docs/error_budget.JPG)
+![error_negativeamount](docs/error_budget_negative.JPG)
+
 #### Add Expense
 Prompts user to follow the prompts to enter the details of their expense:
 
@@ -160,8 +214,24 @@ Prompts user to follow the prompts to enter the details of their expense:
 User input for expense name:
 ![expense_name](docs/method_addexpense_name.JPG)
 
+***Successful Output***
+
+![input_expense_name](docs/success_inputname.JPG)
+
+***Unsuccessful Output***
+![error_name](docs/error_name.JPG)
+
 User input for expense amount:
 ![expense_amount](docs/method_addexpense_amount.JPG)
+
+***Successful Output***
+
+![output_amount](docs/success_amount.JPG)
+
+***Unsuccessful Output***
+
+![error_amount](docs/error_amount.JPG)
+![error_amount_negative](docs/error_amountnegative.JPG)
 
 Expense date is automatically set depending on system's current clock time using `datetime` python package:
 ![expense_date](docs/method_addexpense_date.JPG)
@@ -169,11 +239,30 @@ Expense date is automatically set depending on system's current clock time using
 User input for choice from category list:
 ![expense_category](docs/method_addexpense_category.JPG)
 
+***Successful Output***
+
+![output_expense_category](docs/success_category.JPG)
+
+***Unsuccessful Output***
+![error_invalid_number](docs/error_amount_2.JPG)
+
 User input for choice from payment method list:
 ![expense_paymentmethod](docs/method_addexpense_paymentmethod.JPG)
 
-User input for expense name:
+***Successful Output***
+
+![output_paymentmethod](docs/success_paymentmethod.JPG)
+
+***Unsuccessful Output***
+![error_invalid_number](docs/error_amount_2.JPG)
+
+
+Displays results after user follows all prompts:
 ![expense_result](docs/method_addexpense_after_input.JPG)
+
+***Successful Output***
+
+![output_addexpense](docs/success_addexpense_result.JPG)
 
 #### Remove an Expense
 Shows user a list of existing expenses [ if applicable ]. Users will be able to choose from the following list to remove an expense, showing remaining expenses and remaining budget.
@@ -183,8 +272,18 @@ Shows user a list of existing expenses [ if applicable ]. Users will be able to 
     - Display remaining expenses and updated remaining budget
 
 ![remove_expense_invalid](docs/method_removeexpense_noexpense.JPG)
+***Output***
+![noexpense](docs/error_noexpesne.JPG)
 
 ![remove_expense_valid](docs/method_removeexpense_withexpense.JPG)
+***Successful Output***
+
+![success_remove_expense](docs/success_remove.JPG)
+
+***Unsuccessful Output***
+
+![error_remove](docs/error_removeindex.JPG)
+
 
 #### View Expenses
 Displays all expenses that has been recorded within the current monthly tracker loaded
@@ -198,12 +297,28 @@ Displays all expenses that has been recorded within the current monthly tracker 
 
 ![view_expenses](docs/method_viewexpense.JPG)
 
+***Successful Output***
+
+![output_view_expenses](docs/success_viewexpense.JPG)
+
+***Unsuccessful Output***
+
+![noexpense](docs/noexpense_recorded.JPG)
+
 ### Total Expenses
 Displays the sum and total of all expenses within the current monthly tracker loaded
 
     - Display total amount in $ of expenses
 
 ![total_expenses](docs/method_totalexpense.JPG)
+
+***Successful Output***
+
+![output_total_expenses](docs/success_total.JPG)
+
+***Unsuccessful Output***
+
+![noexpense](docs/noexpense_recorded.JPG)
 
 ### Export expense file
 Prompts user to save and name the file for their monthly tracker csv file
@@ -214,6 +329,10 @@ Prompts user to save and name the file for their monthly tracker csv file
     - Contains data of expense entries for month exported.
 
 ![save_expenses](docs/method_saveexpense.JPG)
+
+***Successful Output***
+
+![output_save_expense](docs/success_save.JPG)
 
 ### Exit Application
 
